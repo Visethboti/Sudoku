@@ -1,16 +1,21 @@
-def findRow(n, index):
+# Find if the number already existed in the row
+def findRow(table, n, index):
     for i in range(0, 9):
         if(table[index][i] == n):
             return True
     return False
 
-def findColumn(n, index):
+
+# Find if the number already existed in the column
+def findColumn(table, n, index):
     for i in range(0, 9):
         if(table[i][index] == n):
             return True
     return False
-            
-def findBox(n, indexR, indexC):
+
+
+# Find if the number already existed in the box
+def findBox(table, n, indexR, indexC):
     
     indexRow = 0
     indexColumn = 0
@@ -49,7 +54,31 @@ def findBox(n, indexR, indexC):
                 return True
     return False
 
-###############################################            
+
+###############################################        
+
+
+def solver(table):
+    for row in range(0, 9):
+        for column in range (0, 9):
+            if(table[row][column] == 0):
+                for i in range(1, 9):
+                    if not(findRow(table, i, row) or findColumn(table, i, column) or findBox(table, i, row, column)):
+                        table[row][column] = i
+    return table
+
+
+###############################################    
+
+table1 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
+         [7, 0, 0, 9, 0, 0, 0, 3, 0],
+         [0, 0, 0, 0, 3, 0, 1, 0, 7],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [4, 0, 3, 1, 0, 0, 2, 5, 0],
+         [0, 0, 6, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 7, 0, 0, 3],
+         [0, 9, 7, 5, 8, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
 
 table2 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
          [7, 0, 0, 9, 0, 0, 0, 3, 0],
@@ -61,30 +90,10 @@ table2 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
          [0, 9, 7, 5, 8, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
 
-table = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
-         [7, 0, 0, 9, 0, 0, 0, 3, 0],
-         [0, 0, 0, 0, 3, 0, 1, 0, 7],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [4, 0, 3, 1, 0, 0, 2, 5, 0],
-         [0, 0, 6, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 7, 0, 0, 3],
-         [0, 9, 7, 5, 8, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
-
-print(findBox(2, 0 , 0))
+output_table = solver(table1)
+for i in range(0, 9):
+    print(output_table[i])
 
 
-
-
-if(findColumn(3, 0)):
-    print("found it")
-else:
-    print("not found")
-    
-    
-switcher = {
-        1: "Hello"
-    }
-print(switcher.get(1))
     
 
