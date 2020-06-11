@@ -68,6 +68,38 @@ def solver(table):
     return table
 
 
+
+def solver2(table):
+    
+    def solRow(table, currentRow):
+        def solColumn(table, currentColumn):
+            
+            if(table[currentRow][currentColumn] == 0):
+                for i in range(1, 9):
+                    if not(findRow(table, i, currentRow) or findColumn(table, i, currentColumn) or findBox(table, i, currentRow, currentColumn)):
+                        table[currentRow][currentColumn] = i
+            
+            if (currentColumn > 8):
+                return
+            solColumn(table, currentColumn+1)
+        if (currentRow > 8):
+            return 
+        solRow(table, currentRow+1)
+        
+    return table
+
+
+
+def solver3(table):
+    for row in range(0, 9):
+        for column in range (0, 9):
+            if(table[row][column] == 0):
+                for i in range(1, 9):
+                    if not(findRow(table, i, row) or findColumn(table, i, column) or findBox(table, i, row, column)):
+                        table[row][column] = i
+    return table
+
+
 ###############################################    
 
 table1 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
@@ -90,7 +122,7 @@ table2 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
          [0, 9, 7, 5, 8, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
 
-output_table = solver(table1)
+output_table = solver2(table1)
 for i in range(0, 9):
     print(output_table[i])
 
