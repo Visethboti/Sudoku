@@ -55,6 +55,11 @@ def findBox(table, n, indexR, indexC):
     return False
 
 
+def findAll(table, n, indexR, indexC):
+    if (findRow(table, n, indexR) or findColumn(table, n, indexC) or findBox(table, n, indexR, indexC)):
+        return True
+    else:
+        return False
 ###############################################        
 
 
@@ -63,7 +68,7 @@ def solver(table):
         for column in range (0, 9):
             if(table[row][column] == 0):
                 for i in range(1, 9):
-                    if not(findRow(table, i, row) or findColumn(table, i, column) or findBox(table, i, row, column)):
+                    if not(findAll(table, i, row, column)):
                         table[row][column] = i
     return table
 
@@ -76,7 +81,7 @@ def solver2(table):
             
             if(table[currentRow][currentColumn] == 0):
                 for i in range(1, 9):
-                    if not(findRow(table, i, currentRow) or findColumn(table, i, currentColumn) or findBox(table, i, currentRow, currentColumn)):
+                    if(findAll(table, i, currentRow, currentColumn))
                         table[currentRow][currentColumn] = i
             
             if (currentColumn > 8):
@@ -121,6 +126,40 @@ def solver4(table):
     def solve(table, row):
         
         def solve2(table2, col):
+            
+            def solve3(table3, i):
+                
+                if(table3[row][col] == 0):
+                    if not(findAll(table3, i, row, col)):
+                        table3[row][col] = i
+                
+                if(i > 8):
+                    return table3
+                else:
+                    return solve3(table3, i+1)
+                
+            
+            table2 = solve3(table2, 1)
+            
+            if(col > 7):
+                return table2
+            else:
+                return solve2(table2, col+1)
+            
+        table = solve2(table, 0)
+        
+        if(row > 7):
+            return table
+        else:
+            return solve(table, row+1)
+    
+    return solve(table, 0)
+
+"""
+def solver4(table):
+    def solve(table, row):
+        
+        def solve2(table2, col):
             if(col > 8):
                 return table2
             else:
@@ -134,7 +173,7 @@ def solver4(table):
             return solve(table, row+1)
     
     return solve(table, 0)
-                
+"""          
 
 ###############################################    
 
@@ -158,7 +197,7 @@ table2 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
          [0, 9, 7, 5, 8, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
 
-output_table = solver4(table1)
+output_table = solver(table2)
 for i in range(0, 9):
     print(output_table[i])
 
