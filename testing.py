@@ -100,7 +100,7 @@ def solver2(t):
     
     return solve(t, r, c)
 
-def solver3(t):
+def solver3(t2):
     r = 0
     c = 0
     def solve(t, row, col):
@@ -108,17 +108,47 @@ def solver3(t):
             return t
         
         if(t[row][col] == 0):
-            for i in range(1, 10)
+            for i in range(1, 10):
+                if not(findAll(t, i, row, col)):
+                    t[row][col] = i
+                    if(col >= 8):
+                        return solve(t, row+1, 0)
+                    else:
+                        return solve(t, row, col+1)
     
     
-    return solve(t, r, c)
+    t2 = solve(t2, r, c)
+    return t2
 
-for i in range(1, 10):
-    print(table1[8][8])
+def solver4(t):
+    r = 0
+    c = 0
+    def solve(row, col):
+        if(row >= 8 and col >= 8):
+            return
+        
+        if(t[row][col] == 0):
+            for i in range(1, 10):
+                if not(findAll(t, i, row, col)):
+                    t[row][col] = i
+                    if(col >= 8):
+                        solve(row+1, 0)
+                    else:
+                        solve(row, col+1)
+            return
+        else:
+            if(col >= 8):
+                return solve(row+1, 0)
+            else:
+                return solve(row, col+1)
+    
+    
+    solve(r, c)
+    return t
 
 
-
-table1 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+###########################################
+table0 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -128,5 +158,18 @@ table1 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
+table1 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
+         [7, 0, 0, 9, 0, 0, 0, 3, 0],
+         [0, 0, 0, 0, 3, 0, 1, 0, 7],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [4, 0, 3, 1, 0, 0, 2, 5, 0],
+         [0, 0, 6, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 7, 0, 0, 3],
+         [0, 9, 7, 5, 8, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
 
-result = solver2(table1)
+
+result = solver4(table0)
+
+for i in range(0, 9):
+    print(result[i])
