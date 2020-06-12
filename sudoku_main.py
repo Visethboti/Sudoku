@@ -61,7 +61,6 @@ def findAll(table, n, indexR, indexC):
     else:
         return False
 ###############################################        
-tableOutput = []
 
 def solver(table):
     for row in range(0, 9):
@@ -70,7 +69,6 @@ def solver(table):
                 for i in range(1, 9):
                     if not(findAll(table, i, row, column)):
                         table[row][column] = i
-                        tableOutput.append(table)
                         
     return table
 
@@ -120,7 +118,7 @@ def solver3(table):
                     return table3
                         
                 if(i > 8):
-                    return solve3(table3, table2[row][col]+1)
+                    return table3
                 else:
                     return solve3(table3, i+1)
                 
@@ -164,15 +162,15 @@ def solver4(table):
 def solver5(table):
     def solve(table2, row, col):
         for i in range(1, 9):
-            if(row > 8 and col > 8):
+            if(row > 7):
                 return table2
             
             if not(findAll(table, i, row, col)):
                 table2[row][col] = i
-                if(col < 8):
+                if(col < 7):
                     return solve(table2, row, col+1)
                 else:
-                    if(col >= 8):
+                    if(col >= 7):
                         return solve(table2, row+1, 0)
         
     
@@ -180,21 +178,10 @@ def solver5(table):
 
 
 def solver6(table):
-    def solve(table2, row, col):
-        for i in range(1, 9):
-            if(row > 8 and col > 8):
-                return table2
-            
-            if not(findAll(table, i, row, col)):
-                table2[row][col] = i
-                if(col < 8):
-                    return solve(table2, row, col+1)
-                else:
-                    if(col >= 8):
-                        return solve(table2, row+1, 0)
         
     
-    return solve(table, 0, 0)
+    
+    
     
 
 ###############################################    
@@ -233,11 +220,11 @@ output_table = solver(table1)
 for i in range(0, 9):
     print(output_table[i])
 print("===============================")
-output_table = solver2(table2)
+output_table = solver2(table1)
 for i in range(0, 9):
     print(output_table[i])
 print("===============================")
-output_table = solver6(table3)
+output_table = solver5(table3)
 for i in range(0, 9):
     print(output_table[i])
 
