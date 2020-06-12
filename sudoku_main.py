@@ -1,3 +1,15 @@
+# Author: Visethboti Sin
+# Date: 12/June/2020
+
+
+
+################### Functions #######################
+
+# Print the table
+def printTable(t):
+    for i in range(0, 9):
+        print(t[i])
+
 # Find if the number already existed in the row
 def findRow(table, n, index):
     for i in range(0, 9):
@@ -60,7 +72,7 @@ def findAll(table, n, indexR, indexC):
         return True
     else:
         return False
-###############################################        
+###################### Solver Functions #########################        
 
 def solver(table):
     for row in range(0, 9):
@@ -177,14 +189,43 @@ def solver5(table):
     return solve(table, 0, 0)
 
 
-def solver6(table):
+############### Working one ####################
+def solver6(t):
+    r = 0
+    c = 0
+    def solve(row, col):
+        if(row >= 8 and col >= 8):
+            t[row][col] = 'Done'
+            return
+        
+        if(t[row][col] == 0):
+            for i in range(1, 10):
+                if not(findAll(t, i, row, col)):
+                    t[row][col] = i
+                    if(col >= 8):
+                        solve(row+1, 0)
+                    else:
+                        solve(row, col+1)
+            if not(t[8][8] == 0):
+                return
+            t[row][col] = 0
+            return
+        else:
+            if(col >= 8):
+                solve(row+1, 0)
+            else:
+                solve(row, col+1)
+    
+    
+    solve(r, c)
+    return t
         
     
     
     
     
 
-###############################################    
+##################### Sudoku Empty Tables ##########################    
 
 table1 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
          [7, 0, 0, 9, 0, 0, 0, 3, 0],
@@ -196,39 +237,34 @@ table1 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
          [0, 9, 7, 5, 8, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
 
-table2 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
-         [7, 0, 0, 9, 0, 0, 0, 3, 0],
-         [0, 0, 0, 0, 3, 0, 1, 0, 7],
+table2 = [[0, 0, 0, 2, 6, 0, 7, 0, 1],
+         [6, 8, 0, 0, 7, 0, 0, 9, 0],
+         [1, 9, 0, 0, 0, 4, 5, 0, 0],
+         [8, 2, 0, 1, 0, 0, 0, 4, 0],
+         [0, 0, 4, 6, 0, 2, 9, 0, 0],
+         [0, 5, 0, 0, 0, 3, 0, 2, 8],
+         [0, 0, 9, 3, 0, 0, 0, 7, 4],
+         [0, 4, 0, 0, 5, 0, 0, 3, 6],
+         [7, 0, 3, 0, 1, 8, 0, 0, 0]]
+
+table3 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [4, 0, 3, 1, 0, 0, 2, 5, 0],
-         [0, 0, 6, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 7, 0, 0, 3],
-         [0, 9, 7, 5, 8, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
-
-table3 = [[0, 0, 0, 0, 0, 0, 9, 0, 0],
-         [7, 0, 0, 9, 0, 0, 0, 3, 0],
-         [0, 0, 0, 0, 3, 0, 1, 0, 7],
          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [4, 0, 3, 1, 0, 0, 2, 5, 0],
-         [0, 0, 6, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 7, 0, 0, 3],
-         [0, 9, 7, 5, 8, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
-
-output_table = solver(table1)
-for i in range(0, 9):
-    print(output_table[i])
-print("===============================")
-output_table = solver2(table1)
-for i in range(0, 9):
-    print(output_table[i])
-print("===============================")
-output_table = solver5(table3)
-for i in range(0, 9):
-    print(output_table[i])
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 
+###################### Main ########################
+
+printTable(solver6(table1))
+
+
+
+"""
 import sys
 import time
 out_stream = sys.stdout
@@ -245,3 +281,4 @@ def printTable(t):
             print(output_table[i])
         time.sleep(0.5)
         print("===============================")
+"""

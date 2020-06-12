@@ -63,8 +63,123 @@ def findAll(table, n, indexR, indexC):
     
 ###############################################################
 
+def solver(table):
+    for row in range(0, 9):
+        for column in range (0, 9):
+            if(table[row][column] == 0):
+                for i in range(1, 9):
+                    if not(findAll(table, i, row, column)):
+                        table[row][column] = i
+                        
+    return table
 
-def solver(t):
+def solver2(table):
+    def solve(table, row):
+        
+        def solve2(table2, col):
+            
+            def solve3(table3, i):
+                
+                if not(findAll(table3, i, row, col)):
+                    table3[row][col] = i
+                    return table3
+                        
+                if(i > 8):
+                    return table3
+                else:
+                    return solve3(table3, i+1)
+                
+            if(table2[row][col] == 0):
+                table2 = solve3(table2, 1)
+            
+            if(col > 7):
+                return table2
+            else:
+                return solve2(table2, col+1)
+            
+        table = solve2(table, 0)
+        
+        if(row > 7):
+            return table
+        else:
+            return solve(table, row+1)
+    
+    return solve(table, 0)
+
+
+def solver3(table):
+    def solve(table, row):
+        
+        def solve2(table2, col):
+            
+            def solve3(table3, i):
+                
+                if not(findAll(table3, i, row, col)):
+                    table3[row][col] = i
+                    return table3
+                        
+                if(i > 8):
+                    return table3
+                else:
+                    return solve3(table3, i+1)
+                
+            if(table2[row][col] == 0):
+                table2 = solve3(table2, 1)
+            
+            if(col > 7):
+                return table2
+            else:
+                return solve2(table2, col+1)
+            
+        table = solve2(table, 0)
+        
+        if(row > 7):
+            return table
+        else:
+            return solve(table, row+1)
+    
+    return solve(table, 0)
+
+
+def solver4(table):
+    row = 0
+    col = 0
+    
+    while(row < 8 and col < 8):
+        for i in range(1, 9):
+            if not(findAll(table, i, row, col)):
+                table[row][col] = i
+    
+    
+    for row in range(0, 9):
+        for column in range (0, 9):
+            if(table[row][column] == 0):
+                for i in range(1, 9):
+                    if not(findAll(table, i, row, column)):
+                        table[row][column] = i
+    return table
+
+
+def solver5(table):
+    def solve(table2, row, col):
+        for i in range(1, 9):
+            if(row > 7):
+                return table2
+            
+            if not(findAll(table, i, row, col)):
+                table2[row][col] = i
+                if(col < 7):
+                    return solve(table2, row, col+1)
+                else:
+                    if(col >= 7):
+                        return solve(table2, row+1, 0)
+        
+    
+    return solve(table, 0, 0)
+
+###########################
+
+def solver6(t):
     row = 0
     col = 0
     while(row < 8 or col < 8):
@@ -82,7 +197,7 @@ def solver(t):
     
     return t
 
-def solver2(t):
+def solver7(t):
     r = 0
     c = 0
     def solve(t, row, col):
@@ -100,7 +215,7 @@ def solver2(t):
     
     return solve(t, r, c)
 
-def solver3(t2):
+def solver8(t2):
     r = 0
     c = 0
     def solve(t, row, col):
@@ -120,7 +235,8 @@ def solver3(t2):
     t2 = solve(t2, r, c)
     return t2
 
-def solver4(t):
+# The working one
+def solver9(t):
     r = 0
     c = 0
     def solve(row, col):
@@ -152,7 +268,7 @@ def solver4(t):
 
 
 
-def solver5(t):
+def solver10(t):
     result_table = t
     r = 0
     c = 0
@@ -187,7 +303,7 @@ def solver5(t):
     solve(r, c)
     return result_table
 
-def solver6(inputTable):
+def solver11(inputTable):
     
     def solve(t, row, col):
         if(row >= 8 and col >= 8):
@@ -260,7 +376,6 @@ else:
     print("not found")
 
 
-result = solver4(table1)
-
+result = solver4(table2)
 for i in range(0, 9):
     print(result[i])
