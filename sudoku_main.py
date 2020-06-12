@@ -9,6 +9,7 @@
 def printTable(t):
     for i in range(0, 9):
         print(t[i])
+    print('===========================')
 
 # Find if the number already existed in the row
 def findRow(table, n, index):
@@ -194,8 +195,7 @@ def solver6(t):
     r = 0
     c = 0
     def solve(row, col):
-        if(row >= 8 and col >= 8):
-            t[row][col] = 'Done'
+        if(row > 8):
             return
         
         if(t[row][col] == 0):
@@ -220,9 +220,6 @@ def solver6(t):
     solve(r, c)
     return t
         
-    
-    
-    
     
 
 ##################### Sudoku Empty Tables ##########################    
@@ -261,6 +258,7 @@ table3 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
 ###################### Main ########################
 
 printTable(solver6(table1))
+printTable(solver6(table2))
 
 
 
