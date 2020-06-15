@@ -219,6 +219,39 @@ def solver6(t):
     
     solve(r, c)
     return t
+
+
+##################### Show how it solve ##############################
+
+
+def printSolver(t):
+    r = 0
+    c = 0
+    def solve(row, col):
+        if(row > 8):
+            return
+        
+        if(t[row][col] == 0):
+            for i in range(1, 10):
+                if not(findAll(t, i, row, col)):
+                    t[row][col] = i
+                    if(col >= 8):
+                        solve(row+1, 0)
+                    else:
+                        solve(row, col+1)
+            if not(t[8][8] == 0):
+                return
+            t[row][col] = 0
+            return
+        else:
+            if(col >= 8):
+                solve(row+1, 0)
+            else:
+                solve(row, col+1)
+    
+    
+    solve(r, c)
+    return t
         
     
 
@@ -259,7 +292,6 @@ table3 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 printTable(solver6(table1))
 printTable(solver6(table2))
-
 
 
 """

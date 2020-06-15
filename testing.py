@@ -379,3 +379,73 @@ else:
 result = solver4(table2)
 for i in range(0, 9):
     print(result[i])
+    
+    
+import time
+import os
+for i in range(10):
+    print('Update %d' %i, end='\r')
+    os.system('cls||clear')
+    time.sleep(0.5)
+    
+    
+from time import sleep
+N=12
+for i in range(N):
+   sleep(0.5)
+   print(f"{i/N*100:.1f} %", end="\r")    
+
+    
+
+l = []
+
+def go(i):
+    if(i > 5):
+        l.append(i)
+        return "helo"
+    
+    return go(i+1)
+
+print(go(0))
+print(l)
+
+#################### Testing Printing #######################
+def printTable(t):
+    for i in range(0, 9):
+        print(t[i])
+    print('===========================')
+
+t =     [[0, 0, 0, 0, 0, 0, 9, 0, 0],
+         [7, 0, 0, 9, 0, 0, 0, 3, 0],
+         [0, 0, 0, 0, 3, 0, 1, 0, 7],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [4, 0, 3, 1, 0, 0, 2, 5, 0],
+         [0, 0, 6, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 7, 0, 0, 3],
+         [0, 9, 7, 5, 8, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 4 ,0, 0]]
+
+def solve(row, col):
+        if(row > 8):
+            return
+        
+        if(t[row][col] == 0):
+            for i in range(1, 10):
+                if not(findAll(t, i, row, col)):
+                    t[row][col] = i
+                    if(col >= 8):
+                        solve(row+1, 0)
+                    else:
+                        solve(row, col+1)
+            if not(t[8][8] == 0):
+                return
+            t[row][col] = 0
+            printTable(t)
+            return
+        else:
+            if(col >= 8):
+                solve(row+1, 0)
+            else:
+                solve(row, col+1)
+
+solve(0,0)
